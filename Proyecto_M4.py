@@ -14,7 +14,14 @@ def creaLista(datos, llave, nombre):
         lista.append(dato)
     return lista
 
-# def impresión ():
+def impresion_listas (lista):
+    """
+    Función que imprime listas en forma enumerada con un ciclo for.
+    """
+    i = 1
+    for dato in lista:
+        print(f"{i}.- {dato}")
+        i += 1
 
 def llama_api ():
     """
@@ -44,35 +51,40 @@ def muestra_poke(datos):
         imagen = Image.open(urlopen(url_imagen))
     except:
         print("El Pokémon no tiene imagen.")
-
+    nombre = datos["name"]
     peso = datos["weight"]
-    tamaño = datos["height"]
+    tamano = datos["height"]
     movimientos = creaLista(datos["moves"], "move", "name")
     habilidades = creaLista(datos["abilities"], "ability", "name")
     tipos = creaLista(datos["types"], "type", "name")
     
-    # datosPoke = []
-    # datosPoke.append()
+    datosPoke = {
+        "Nombre":nombre, 
+        "url_imagen" : url_imagen, 
+        "Peso" : peso, 
+        "Tamaño" : tamano, 
+        "Movimientos" : movimientos, 
+        "Habilidades" : habilidades, 
+        "Tipos" : tipos
+        }
+    guarda_poke (datosPoke)
 
-    guarda_poke (datos)
-    i = 1
+    # iMPRESIÓN DE LA INFORMACIÓN DEL POKÉMON
     print("Movimientos: ")
-    for movimiento in movimientos:
-        print(f"{i}.- {movimiento}")
-        i += 1
-
+    impresion_listas (movimientos)
     print("Habilidades: ")
-    i = 1
-    for habilidad in habilidades:
-        print(f"{i}.- {habilidad}")
-        i += 1
-    print(tipos)
+    impresion_listas (habilidades)
+    if len(tipos) == 1:
+        print("Tipo")
+    else:
+        print("Tipos")
+    impresion_listas(tipos)
+    print(f"{peso} hectogramos.")
+    print(f"{tamano} decimetros.")
 
-    print(f"{peso} hectogramos o {peso*100} gramos.")
-    print(f"{tamaño} decimetros o {tamaño*10} centimetros.")
-
-
-    plt.title(datos["name"].title()) 
+    # TÍTULO CON CADENA FORMATEADA PARA LA IMAGEN DEL POKÉMON
+    plt.title(nombre.title()) 
+    # ESTAS LÍNEAS NOS MUESTRAN LA IMAGEN DEL POKÉMON
     imgplot = plt.imshow(imagen)
     plt.show()
     
@@ -82,6 +94,11 @@ def guarda_poke(datos):
     """
     with open ("ProyectoM4/pokédex/pokemones.json", "w") as f_pokemones:
         json.dump(datos, f_pokemones)
+
+# def extrae_data_Poke()
+# """
+# Func
+# """
 
 print ("""Bienvenido a tu Pokédex by Olaf.
 Disfruta de tu búsqueda.\n""")
