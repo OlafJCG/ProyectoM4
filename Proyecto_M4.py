@@ -69,48 +69,48 @@ def muestra_poke(datos):
         }
     guarda_poke (datosPoke)
 
-    # # iMPRESIÓN DE LA INFORMACIÓN DEL POKÉMON
-    # print("Movimientos: ")
-    # impresion_listas (movimientos)
-    # print("Habilidades: ")
-    # impresion_listas (habilidades)
-    # if len(tipos) == 1:
-    #     print("Tipo")
-    # else:
-    #     print("Tipos")
-    # impresion_listas(tipos)
-    # print(f"{peso} hectogramos.")
-    # print(f"{tamano} decimetros.")
+    # IMPRESIÓN DE LA INFORMACIÓN DEL POKÉMON
+    print("Movimientos: ")
+    impresion_listas (movimientos)
+    print("Habilidades: ")
+    impresion_listas (habilidades)
+    if len(tipos) == 1:
+        print("Tipo")
+    else:
+        print("Tipos")
+    impresion_listas(tipos)
+    print(f"{peso} hectogramos.")
+    print(f"{tamano} decimetros.")
 
-    # # TÍTULO CON CADENA FORMATEADA PARA LA IMAGEN DEL POKÉMON
-    # plt.title(nombre.title()) 
-    # # ESTAS LÍNEAS NOS MUESTRAN LA IMAGEN DEL POKÉMON
-    # imgplot = plt.imshow(imagen)
-    # plt.show()
+    # TÍTULO CON CADENA FORMATEADA PARA LA IMAGEN DEL POKÉMON
+    plt.title(nombre.title()) 
+    # ESTAS LÍNEAS NOS MUESTRAN LA IMAGEN DEL POKÉMON
+    imgplot = plt.imshow(imagen)
+    plt.show()
     
 def guarda_poke(datos):
     """
     Función que nos guargará el Pokémon en un archivo .JSON
     """
-    # datosPoke = []
-    with open ("ProyectoM4/pokédex/pokemones.json", "r") as f_pokemones:
-        datosPokemones = json.load(f_pokemones)
+    #Manejo de excepciones por si no tenemos creado el archivo "pokemones.json
+    try:
+        with open ("ProyectoM4/pokédex/pokemones.json", "r") as f_pokemones:
+            datosPokemones = json.load(f_pokemones)
+    except FileNotFoundError:
+        with open ("ProyectoM4/pokédex/pokemones.json", "w") as f_pokemones:
+            datosPokemones = {}
+            datosPokemones["Pokemon"] = []     
 
-    if datos in datosPokemones:
-        print("Pokémon ya encontrado.")
-    # print(datos)
-    # # datosPokemones.update(datos)
-    # junto = datosPokemones|datos
-    # print(junto)
-    # # datosPoke = dict(datosPoke)
+    for i in range(len(datosPokemones["Pokemon"])):
+        if (datos["Nombre"]) in (datosPokemones["Pokemon"][i]["Nombre"]):
+            print("Este Pokémon ya está en tu pokédex")
+            break
+        else:
+            datosPokemones["Pokemon"].append(datos)
+        
 
-    # with open ("ProyectoM4/pokédex/pokemones.json", "w") as f_pokemones:
-    #     json.dump(junto, f_pokemones)
-
-# def extrae_data_Poke()
-# """
-# Func
-# """c
+    with open ("ProyectoM4/pokédex/pokemones.json", "w") as f_pokemones:
+        json.dump(datosPokemones, f_pokemones)
 
 print ("""Bienvenido a tu Pokédex by Olaf.
 Disfruta de tu búsqueda.\n""")
