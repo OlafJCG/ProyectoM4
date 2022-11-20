@@ -69,36 +69,48 @@ def muestra_poke(datos):
         }
     guarda_poke (datosPoke)
 
-    # iMPRESIÓN DE LA INFORMACIÓN DEL POKÉMON
-    print("Movimientos: ")
-    impresion_listas (movimientos)
-    print("Habilidades: ")
-    impresion_listas (habilidades)
-    if len(tipos) == 1:
-        print("Tipo")
-    else:
-        print("Tipos")
-    impresion_listas(tipos)
-    print(f"{peso} hectogramos.")
-    print(f"{tamano} decimetros.")
+    # # iMPRESIÓN DE LA INFORMACIÓN DEL POKÉMON
+    # print("Movimientos: ")
+    # impresion_listas (movimientos)
+    # print("Habilidades: ")
+    # impresion_listas (habilidades)
+    # if len(tipos) == 1:
+    #     print("Tipo")
+    # else:
+    #     print("Tipos")
+    # impresion_listas(tipos)
+    # print(f"{peso} hectogramos.")
+    # print(f"{tamano} decimetros.")
 
-    # TÍTULO CON CADENA FORMATEADA PARA LA IMAGEN DEL POKÉMON
-    plt.title(nombre.title()) 
-    # ESTAS LÍNEAS NOS MUESTRAN LA IMAGEN DEL POKÉMON
-    imgplot = plt.imshow(imagen)
-    plt.show()
+    # # TÍTULO CON CADENA FORMATEADA PARA LA IMAGEN DEL POKÉMON
+    # plt.title(nombre.title()) 
+    # # ESTAS LÍNEAS NOS MUESTRAN LA IMAGEN DEL POKÉMON
+    # imgplot = plt.imshow(imagen)
+    # plt.show()
     
 def guarda_poke(datos):
     """
     Función que nos guargará el Pokémon en un archivo .JSON
     """
-    with open ("ProyectoM4/pokédex/pokemones.json", "w") as f_pokemones:
-        json.dump(datos, f_pokemones)
+    # datosPoke = []
+    with open ("ProyectoM4/pokédex/pokemones.json", "r") as f_pokemones:
+        datosPokemones = json.load(f_pokemones)
+
+    if datos in datosPokemones:
+        print("Pokémon ya encontrado.")
+    # print(datos)
+    # # datosPokemones.update(datos)
+    # junto = datosPokemones|datos
+    # print(junto)
+    # # datosPoke = dict(datosPoke)
+
+    # with open ("ProyectoM4/pokédex/pokemones.json", "w") as f_pokemones:
+    #     json.dump(junto, f_pokemones)
 
 # def extrae_data_Poke()
 # """
 # Func
-# """
+# """c
 
 print ("""Bienvenido a tu Pokédex by Olaf.
 Disfruta de tu búsqueda.\n""")
