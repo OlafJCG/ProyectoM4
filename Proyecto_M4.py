@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from PIL import Image
 from urllib.request import urlopen
 import json
-# import time
+import os
 
 def creaLista(datos, llave, nombre):
     """
@@ -91,8 +91,8 @@ def muestra_poke(datos):
     else:
         print("Tipos")
     impresion_listas(tipos)
-    print(f"{peso} hectogramos.")
-    print(f"{tamano} decimetros.")
+    print(f"Pesa: {peso} hectogramos.")
+    print(f"Mide: {tamano} decimetros.")
 
     # TÍTULO CON CADENA FORMATEADA PARA LA IMAGEN DEL POKÉMON
     plt.title(nombre.title()) 
@@ -109,21 +109,34 @@ def guarda_poke(datos):
     """
     #Manejo de errores por si no tenemos creado el archivo "pokemones.json
     try:
-        with open ("ProyectoM4/pokédex/pokemones.json", "r") as f_pokemones:
-            datosPokemones = json.load(f_pokemones)
-            if len(datosPokemones["Pokemon"]) == 0:
-                datosPokemones["Pokemon"].append(datos)
-            else:
-                for i in range(len(datosPokemones["Pokemon"])):
-                    if (datos["Nombre"]) in (datosPokemones["Pokemon"][i]["Nombre"]):
-                        print("Este Pokémon ya está en tu pokédex")
-                        break
-                    else:
+        if os.stat("ProyectoM4/pokédex/pokemones.json").st_size == 0:
+            datosPokemones = {}
+            datosPokemones["Pokemon"] = []  
+            datosPokemones["Pokemon"].append(datos)
+            with open ("ProyectoM4/pokédex/pokemones.json", "w") as f_pokemones:
+                json.dump(datosPokemones, f_pokemones) 
+                print("Pokémon guardado exitosamente.")
+        else:
+            with open ("ProyectoM4/pokédex/pokemones.json", "r") as f_pokemones:
+                datosPokemones = json.load(f_pokemones)
+                if len(datosPokemones["Pokemon"]) == 0:
+                    with open ("ProyectoM4/pokédex/pokemones.json", "w") as f_pokemones:
                         datosPokemones["Pokemon"].append(datos)
+                        json.dump(datosPokemones, f_pokemones) 
+                        print("Pokémon guardado exitosamente.")
+                else:
+                    valida = False
+                    for i in range(len(datosPokemones["Pokemon"])):
+                        if (datos["Nombre"]) in (datosPokemones["Pokemon"][i]["Nombre"]):
+                            valida = True
+                            print("Este Pokémon ya está en tu pokédex")
+                            break
+                    if valida == False:
                         with open ("ProyectoM4/pokédex/pokemones.json", "w") as f_pokemones:
-                            json.dump(datosPokemones, f_pokemones)
+                            datosPokemones["Pokemon"].append(datos)
+                            json.dump(datosPokemones, f_pokemones) 
                             print("Pokémon guardado exitosamente.")
-    except FileNotFoundError:
+    except (FileNotFoundError, UnicodeDecodeError):
         with open ("ProyectoM4/pokédex/pokemones.json", "w") as f_pokemones:
             datosPokemones = {}
             datosPokemones["Pokemon"] = []  
