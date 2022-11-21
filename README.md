@@ -30,4 +30,9 @@ Comencé probando la API en un API tester y familiarizandome con la estructura d
       <p>Ya dentro de la función "guarda_poke(datos)" trabajaremos con el diccionario que creamos. Pero antes haremos algunas validaciones para evitar la mayor cantidad de errores posibles por el momento con el manejo de un archivo "json". Validamos si hay un archivo "json" existente, si el archivo se encuentra vacío o si ya contiene el pokémon que estamos deseando guardar.
         </p>
 <H2 align="center">Algunas pruebas. </H2>
-      
+<p align = "left"><img src = "Imagenes/no_encontrado.PNG" width="600">
+  <br> Podemos ver el mensaje de bienvenida al programa, y una prueba de que el pokémon no se encuentra en la API. Así como también la pregunta de nueva cuenta para ingresar otro nombre de algún pokémon.
+  <p align = "left"><img src = "Imagenes/encontrado.PNG" width="300"><img src = "Imagenes/encontrado1.PNG" width="200"><img src = "Imagenes/Figure_1.png" width="400">
+  <br>    En este ejemplo podemos ver que el pokémon se encontró en la API y el programa nos imprimió los datos que nos interesaban, así como un mensaje de "Guardado exitoso".
+    <p align = "left"><img src = "Imagenes/duplicado.PNG" width="300">
+      <br>Y por último en este ejemplo podemos ver que se mostró la información del pokémon, pero se muestra el mensaje de que el pokémon ya se encuentra en nuestro "pokédex" y por lo tanto ya no se guarda.
